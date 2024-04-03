@@ -22,10 +22,10 @@ public class EnergyPrices {
     private String country;
     
     @Column(name = "buy_volume")
-    private double buyVolume;
+    private String buyVolume;
     
     @Column(name = "sellVolume")
-    private double sellVolume;
+    private String sellVolume;
     
     @Column(name = "price")
     private double price;
@@ -42,13 +42,6 @@ public class EnergyPrices {
     @Column(name = "timeslot")
     private int timeslot;
 
-	public Long getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(Long uuid) {
-		this.uuid = uuid;
-	}
 
 	public String getId() {
 		return id;
@@ -66,19 +59,19 @@ public class EnergyPrices {
 		this.country = country;
 	}
 
-	public double getBuyVolume() {
+	public String getBuyVolume() {
 		return buyVolume;
 	}
 
-	public void setBuyVolume(double buyVolume) {
+	public void setBuyVolume(String buyVolume) {
 		this.buyVolume = buyVolume;
 	}
 
-	public double getSellVolume() {
+	public String getSellVolume() {
 		return sellVolume;
 	}
 
-	public void setSellVolume(double sellVolume) {
+	public void setSellVolume(String sellVolume) {
 		this.sellVolume = sellVolume;
 	}
 
