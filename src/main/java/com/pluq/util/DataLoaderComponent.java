@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.pluq.service.EnergyPricesService;
+import com.pluq.service.LocationsService;
 import com.pluq.service.MeterValueService;
 
 @Component
@@ -16,13 +17,14 @@ public class DataLoaderComponent implements CommandLineRunner{
 	@Autowired
 	EnergyPricesService eneryPricesServic;
 	
-
+	@Autowired
+	LocationsService locationsService;
+	
     @Override
     public void run(String... args) throws Exception {
 		meterValueService.loadMeterValueFromJson("src/main/resources/meterValues.json");
 		eneryPricesServic.loadEneryPricesFromJson("src/main/resources/energyPrices.json");
+		locationsService.loadLocationsFromJson("src/main/resources/locations.json");
 		
     }
 }
-
-
