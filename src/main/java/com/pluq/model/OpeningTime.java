@@ -17,4 +17,12 @@ public class OpeningTime {
 		this.twentyfourseven = null;
 	}
 
+	public Boolean getTwentyfourseven() {
+		return twentyfourseven;
+	}
+
+	public void setTwentyfourseven(Boolean twentyfourseven) {
+		this.twentyfourseven = twentyfourseven;
+	}
+	
 }
