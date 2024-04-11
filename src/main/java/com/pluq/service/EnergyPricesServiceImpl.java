@@ -11,28 +11,29 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.pluq.model.Location;
-import com.pluq.repository.LocationsRepository;
+import com.pluq.model.EnergyPrices;
+import com.pluq.repository.EnergyPricesRepository;
 
 @Service
-public class LocationsService {
+public class EnergyPricesServiceImpl {
 	
 	@Autowired
-	private LocationsRepository locationRepository;
+	private EnergyPricesRepository energyPricesRepository;
 	
 	@SuppressWarnings("null")
-	public void loadLocationsFromJson(String filePath) throws IOException {
+	public void loadEneryPricesFromJson(String filePath) throws IOException {
 
         try {
             String jsonData = new String(Files.readAllBytes(Paths.get(filePath)));
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            List<Location> meterValue = objectMapper.readValue(jsonData, new TypeReference<List<Location>>() {});
-            locationRepository.saveAll(meterValue);
+            List<EnergyPrices> energyPrices = objectMapper.readValue(jsonData, new TypeReference<List<EnergyPrices>>() {});
+            energyPricesRepository.saveAll(energyPrices);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 	}
+
 }

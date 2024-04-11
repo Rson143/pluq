@@ -4,27 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.pluq.service.EnergyPricesService;
-import com.pluq.service.LocationsService;
-import com.pluq.service.MeterValueService;
+import com.pluq.service.EnergyPricesServiceImpl;
+import com.pluq.service.LocationsServiceImpl;
+import com.pluq.service.MeterValueServiceImpl;
 
 @Component
 public class DataLoaderComponent implements CommandLineRunner{
 	
 	@Autowired
-	MeterValueService meterValueService;
+	MeterValueServiceImpl meterValueServiceImpl;
 	
 	@Autowired
-	EnergyPricesService eneryPricesServic;
+	EnergyPricesServiceImpl eneryPricesServicImpl;
 	
 	@Autowired
-	LocationsService locationsService;
+	LocationsServiceImpl locationsServiceImpl;
 	
     @Override
     public void run(String... args) throws Exception {
-		meterValueService.loadMeterValueFromJson("src/main/resources/meterValues.json");
-		eneryPricesServic.loadEneryPricesFromJson("src/main/resources/energyPrices.json");
-		locationsService.loadLocationsFromJson("src/main/resources/locations.json");
+		meterValueServiceImpl.loadMeterValueFromJson("src/main/resources/meterValues.json");
+		eneryPricesServicImpl.loadEneryPricesFromJson("src/main/resources/energyPrices.json");
+		locationsServiceImpl.loadLocationsFromJson("src/main/resources/locations.json");
 		
     }
 }
