@@ -8,6 +8,7 @@ public class Constant {
 	
 	public static final String LOCATION = "/location";
 	public static final String LOCATION_BY_ID = "/location/{id}";
+	public static final String SAVE_OR_UPDATE_LOCATION = "/location/sava";
 	
 	
 }

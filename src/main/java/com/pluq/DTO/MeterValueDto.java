@@ -2,7 +2,7 @@ package com.pluq.DTO;
 
 import java.time.LocalDateTime;
 
-public class MeterValueDTO {
+public class MeterValueDto {
 	private LocalDateTime date;
 	private LocalDateTime dateAdded;
 	private String physicalReference;

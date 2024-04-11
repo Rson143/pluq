@@ -2,10 +2,10 @@ package com.pluq.service;
 
 import java.util.List;
 
-import com.pluq.DTO.MeterValueDTO;
+import com.pluq.DTO.MeterValueDto;
 
 public interface MeterValueService {
 	
-	List<MeterValueDTO> findByPhysicalReference(String physicalReference);
+	List<MeterValueDto> findByPhysicalReference(String physicalReference);
 
 }

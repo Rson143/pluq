@@ -7,18 +7,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pluq.DTO.MeterValueDTO;
+import com.pluq.DTO.LocationDto;
+import com.pluq.DTO.MeterValueDto;
 import com.pluq.model.Location;
 import com.pluq.model.MeterValues;
-import com.pluq.service.EnergyPricesServiceImpl;
 import com.pluq.service.LocationsServiceImpl;
 import com.pluq.service.MeterValueServiceImpl;
 import com.pluq.util.Constant;
@@ -29,11 +30,10 @@ public class PluqController {
 	
 	private final LocationsServiceImpl locationsServiceImpl;
 	private final MeterValueServiceImpl meterValueServiceImpl;
-	private final EnergyPricesServiceImpl energyPriceServiceImpl;
 	
-	public PluqController(LocationsServiceImpl locationsServiceImpl, MeterValueServiceImpl meterValueServiceImpl ,EnergyPricesServiceImpl energyPriceServiceImpl) {
+	@Autowired
+	public PluqController(LocationsServiceImpl locationsServiceImpl, MeterValueServiceImpl meterValueServiceImpl) {
 		this.locationsServiceImpl = locationsServiceImpl;
-		this.energyPriceServiceImpl = energyPriceServiceImpl;
 		this.meterValueServiceImpl = meterValueServiceImpl;
 		
 	}
@@ -46,9 +46,7 @@ public class PluqController {
 	}
 	
 	@GetMapping(Constant.METER_VALUE_BY_PHYSICAL_REFERENCE)
-	public List<MeterValueDTO> meterValueByPhysicalReference(
-			@PathVariable String physicalReference
-			){
+	public List<MeterValueDto> meterValueByPhysicalReference(@PathVariable String physicalReference){
 		try{
 			return meterValueServiceImpl.findByPhysicalReference(physicalReference);
       } catch (Exception e) {
@@ -58,16 +56,54 @@ public class PluqController {
 	}
 	
 	@PostMapping(Constant.SAVE_METER_VALUES)
-	public ResponseEntity<String> saveMeterValues(@RequestBody(required = true) List<MeterValues> values){
+	public ResponseEntity<String> saveMeterValues(@RequestBody(required = true) @NonNull List<MeterValues> values){
+		
 		try {
 			meterValueServiceImpl.saveMeterValues(values);
 			return new ResponseEntity<>("Meter value saved", HttpStatus.CREATED);
 		}catch (Exception e){
 			e.printStackTrace();
 			return new ResponseEntity<>("Failed to save Meter", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
+		}	
 	}
+
+	//Location retrieving and saving
+	
+	@GetMapping(Constant.LOCATION)
+	public 	List<Location> locations(){
+		try {
+			return locationsServiceImpl.getAllLocations();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+	
+	@GetMapping(Constant.LOCATION_BY_ID)
+		public Optional<Location> LocationById(@PathVariable @NonNull String id){
+		try {
+			return locationsServiceImpl.getLocationByID(id);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}	
+	}
+	
+	@PostMapping(Constant.SAVE_OR_UPDATE_LOCATION)
+	public ResponseEntity<String> saveOrUpdateLocation(@RequestBody(required = true) @NonNull List<Location> location){
+		
+		try {
+			System.out.print("Save Location");
+			locationsServiceImpl.saveOrUpdateLocation(location);
+			return new ResponseEntity<>("Location saved", HttpStatus.CREATED);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseEntity<>("Failed to save Location", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 }
 	
 

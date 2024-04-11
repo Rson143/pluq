@@ -3,13 +3,13 @@ package com.pluq.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.pluq.DTO.MeterValueDTO;
+import com.pluq.DTO.MeterValueDto;
 import com.pluq.model.MeterValues;
 
 public class MeterValueMapper {
 	
-	public static MeterValueDTO toDTO(MeterValues meterValue) {
-		MeterValueDTO dto = new MeterValueDTO();
+	private static MeterValueDto toDTO(MeterValues meterValue) {
+		MeterValueDto dto = new MeterValueDto();
 		dto.setDate(meterValue.getDate());
         dto.setDateAdded(meterValue.getDateAdded());
         dto.setPhysicalReference(meterValue.getPhysicalReference());
@@ -19,7 +19,7 @@ public class MeterValueMapper {
         return dto;
 	}
 	
-	 public static List<MeterValueDTO> toDTOList(List<MeterValues> meterValue) {
+	 public static List<MeterValueDto> toDTOList(List<MeterValues> meterValue) {
 		 
 	        return meterValue.stream().map(MeterValueMapper::toDTO).collect(Collectors.toList());
 	    }
