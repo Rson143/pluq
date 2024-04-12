@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.pluq</groupId>
 	<artifactId>pluq</artifactId>
-	<version>0.3.0</version>
+	<version>0.3.1</version>
 	<name>pluq</name>
 	<description>Test project for Pluq</description>
 	<properties>
