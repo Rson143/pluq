@@ -22,7 +22,6 @@ public class MeterValueServiceImpl implements MeterValueService {
 	@Autowired
 	private MeterValueRepository meterValueRepository;
 	
-	@SuppressWarnings("null")
 	public void loadMeterValueFromJson(String filePath) throws IOException {
 
         try {
