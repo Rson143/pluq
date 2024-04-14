@@ -4,22 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pluq.DTO.LocationDto;
 import com.pluq.DTO.MeterValueDto;
+import com.pluq.model.ChargingSession;
 import com.pluq.model.Location;
 import com.pluq.model.MeterValues;
+import com.pluq.service.ChargingSessionServiceImpl;
 import com.pluq.service.LocationsServiceImpl;
 import com.pluq.service.MeterValueServiceImpl;
 import com.pluq.util.Constant;
@@ -30,19 +29,27 @@ public class PluqController {
 	
 	private final LocationsServiceImpl locationsServiceImpl;
 	private final MeterValueServiceImpl meterValueServiceImpl;
+	private final ChargingSessionServiceImpl chargingSessionServiceImpl;
 	
-	@Autowired
-	public PluqController(LocationsServiceImpl locationsServiceImpl, MeterValueServiceImpl meterValueServiceImpl) {
+	public PluqController(LocationsServiceImpl locationsServiceImpl,
+			MeterValueServiceImpl meterValueServiceImpl, 
+			ChargingSessionServiceImpl chargingSessionServiceImpl) {
+		
 		this.locationsServiceImpl = locationsServiceImpl;
 		this.meterValueServiceImpl = meterValueServiceImpl;
-		
+		this.chargingSessionServiceImpl = chargingSessionServiceImpl;
 	}
 	
 	//Meter value retrieving and saving
 	
 	@GetMapping(Constant.METER_VALUE)
 	public 	List<MeterValues>  meterValue(){
-		return meterValueServiceImpl.getAllMeterValue();
+		try{
+			return meterValueServiceImpl.getAllMeterValue();
+		} catch (Exception e) {
+	          e.printStackTrace();
+	          return new ArrayList<>();
+			}
 	}
 	
 	@GetMapping(Constant.METER_VALUE_BY_PHYSICAL_REFERENCE)
@@ -104,6 +111,23 @@ public class PluqController {
 		}
 	}
 	
+	// Generating charging report
+
+	@GetMapping("/report")
+    public List<ChargingSession> getChargingReport() {
+    	try {
+    		List<ChargingSession> report = new ArrayList<>();
+        	report = chargingSessionServiceImpl.generateChargingReport();
+        	return report;
+    	}
+    	catch (Exception e) {
+    		e.printStackTrace();
+    		return new ArrayList<>();
+    	}
+    	
+    	
+    
+    }	
 }
 	
 

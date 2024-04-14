@@ -95,5 +95,5 @@ public class EVSE {
 	public void setConnectors(List<Connector> connectors) {
 		this.connectors = connectors;
 	}
-    
+
 }
