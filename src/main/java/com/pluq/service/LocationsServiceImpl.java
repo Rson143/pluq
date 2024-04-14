@@ -17,7 +17,7 @@ import com.pluq.model.Location;
 import com.pluq.repository.LocationsRepository;
 
 @Service
-public class LocationsServiceImpl implements LocationService {
+public class LocationsServiceImpl{
 	
 	@Autowired
 	private LocationsRepository locationRepository;

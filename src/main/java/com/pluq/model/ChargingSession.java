@@ -2,10 +2,6 @@ package com.pluq.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-
 public class ChargingSession {
 	
 	private Long id;

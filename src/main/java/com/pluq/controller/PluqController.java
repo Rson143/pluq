@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -32,7 +31,6 @@ public class PluqController {
 	private final MeterValueServiceImpl meterValueServiceImpl;
 	private final ChargingSessionServiceImpl chargingSessionServiceImpl;
 	
-	@Autowired
 	public PluqController(LocationsServiceImpl locationsServiceImpl,
 			MeterValueServiceImpl meterValueServiceImpl, 
 			ChargingSessionServiceImpl chargingSessionServiceImpl) {
@@ -46,7 +44,12 @@ public class PluqController {
 	
 	@GetMapping(Constant.METER_VALUE)
 	public 	List<MeterValues>  meterValue(){
-		return meterValueServiceImpl.getAllMeterValue();
+		try{
+			return meterValueServiceImpl.getAllMeterValue();
+		} catch (Exception e) {
+	          e.printStackTrace();
+	          return new ArrayList<>();
+			}
 	}
 	
 	@GetMapping(Constant.METER_VALUE_BY_PHYSICAL_REFERENCE)
@@ -110,7 +113,6 @@ public class PluqController {
 	
 	// Generating charging report
 
-	@SuppressWarnings("unchecked")
 	@GetMapping("/report")
     public List<ChargingSession> getChargingReport() {
     	try {
