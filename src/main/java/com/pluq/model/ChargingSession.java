@@ -1,14 +1,8 @@
 package com.pluq.model;
 
-import java.time.LocalDateTime;
-
 public class ChargingSession {
 	
-	private Long id;
-	
 	private String locationName;
-
-    private LocalDateTime date;
 
     private int socketCount;
 
@@ -28,14 +22,6 @@ public class ChargingSession {
 
 	public void setLocation(String locationName) {
 		this.locationName = locationName;
-	}
-
-	public LocalDateTime getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDateTime date) {
-		this.date = date;
 	}
 
 	public int getSocketCount() {
