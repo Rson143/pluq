@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.pluq</groupId>
 	<artifactId>pluq</artifactId>
-	<version>0.4.1</version>
+	<version>0.4.2</version>
 	<name>pluq</name>
 	<description>Test project for Pluq</description>
 	<properties>
@@ -40,13 +40,18 @@
 		    <artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
+		    <groupId>org.modelmapper</groupId>
+		    <artifactId>modelmapper</artifactId>
+		    <version>2.4.3</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
 		</dependency>
 	</dependencies>
 

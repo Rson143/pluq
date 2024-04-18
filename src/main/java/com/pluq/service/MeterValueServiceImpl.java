@@ -37,8 +37,9 @@ public class MeterValueServiceImpl implements MeterValueService {
 
 	}
 
-	public List<MeterValues> getAllMeterValue() {
-		return meterValueRepository.findAll();
+	public List<MeterValueDto> getAllMeterValue() {
+		List<MeterValues> meterValues =  meterValueRepository.findAll();
+		return MeterValueMapper.toDTOList(meterValues);
 	}
 
 
@@ -48,8 +49,10 @@ public class MeterValueServiceImpl implements MeterValueService {
 		return MeterValueMapper.toDTOList(meterValues);
 	}
 
-	public void saveMeterValues(@NonNull List<MeterValues> values) {
-		meterValueRepository.saveAll(values);
+	public void saveMeterValues(@NonNull List<MeterValueDto> values) 
+	{
+		 List<MeterValues> meterValues = MeterValueMapper.toJpaList(values);
+		meterValueRepository.saveAll(meterValues);
 	}
 }
 

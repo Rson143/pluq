@@ -22,7 +22,6 @@ public class LocationsServiceImpl{
 	@Autowired
 	private LocationsRepository locationRepository;
 	
-	@SuppressWarnings("null")
 	public void loadLocationsFromJson(String filePath) throws IOException {
 
         try {
@@ -45,7 +44,6 @@ public class LocationsServiceImpl{
 		return locationRepository.findById(id);
 	}
 
-	@SuppressWarnings("null")
 	public void saveOrUpdateLocation(@NonNull List<Location> locations) {
 		locationRepository.saveAll(locations);
     }	

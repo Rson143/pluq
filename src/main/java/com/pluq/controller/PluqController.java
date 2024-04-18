@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pluq.DTO.MeterValueDto;
 import com.pluq.model.ChargingSession;
 import com.pluq.model.Location;
-import com.pluq.model.MeterValues;
 import com.pluq.service.ChargingSessionServiceImpl;
 import com.pluq.service.LocationsServiceImpl;
 import com.pluq.service.MeterValueServiceImpl;
@@ -43,34 +42,38 @@ public class PluqController {
 	//Meter value retrieving and saving
 	
 	@GetMapping(Constant.METER_VALUE)
-	public 	List<MeterValues>  meterValue(){
+	public 	ResponseEntity<List<MeterValueDto>>  getAllMeterValue(){
 		try{
-			return meterValueServiceImpl.getAllMeterValue();
-		} catch (Exception e) {
+			List<MeterValueDto> meterValue = meterValueServiceImpl.getAllMeterValue();
+			return ResponseEntity.ok(meterValue);
+			
+	      } catch (Exception e) {
 	          e.printStackTrace();
-	          return new ArrayList<>();
-			}
+	          return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
 	}
 	
 	@GetMapping(Constant.METER_VALUE_BY_PHYSICAL_REFERENCE)
-	public List<MeterValueDto> meterValueByPhysicalReference(@PathVariable String physicalReference){
+	public ResponseEntity<List<MeterValueDto>> meterValueByPhysicalReference(@PathVariable String physicalReference){
 		try{
-			return meterValueServiceImpl.findByPhysicalReference(physicalReference);
+			List<MeterValueDto> meterValue = meterValueServiceImpl.findByPhysicalReference(physicalReference);
+			return ResponseEntity.ok(meterValue);
+			
       } catch (Exception e) {
           e.printStackTrace();
-          return new ArrayList<>();
+          return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }	
 	}
 	
 	@PostMapping(Constant.SAVE_METER_VALUES)
-	public ResponseEntity<String> saveMeterValues(@RequestBody(required = true) @NonNull List<MeterValues> values){
+	public ResponseEntity<String> saveMeterValues(@RequestBody(required = true) @NonNull List<MeterValueDto> values){
 		
 		try {
 			meterValueServiceImpl.saveMeterValues(values);
-			return new ResponseEntity<>("Meter value saved", HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		}catch (Exception e){
 			e.printStackTrace();
-			return new ResponseEntity<>("Failed to save Meter", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 

@@ -24,4 +24,19 @@ public class MeterValueMapper {
 	        return meterValue.stream().map(MeterValueMapper::toDTO).collect(Collectors.toList());
 	    }
 
+	public static List<MeterValues> toJpaList(List<MeterValueDto> values) {
+		return values.stream().map(MeterValueMapper::toJpa).collect(Collectors.toList());
+    }
+	
+	private static MeterValues toJpa(MeterValueDto meterValue) {
+		MeterValues Jpa = new MeterValues();
+		Jpa.setDate(meterValue.getDate());
+		Jpa.setDateAdded(meterValue.getDateAdded());
+		Jpa.setPhysicalReference(meterValue.getPhysicalReference());
+		Jpa.setTransactionId(meterValue.getTransactionId());
+		Jpa.setMeterValue(meterValue.getMeterValue());
+		System.out.println(Jpa.toString());
+        return Jpa;
+	}
+
 }

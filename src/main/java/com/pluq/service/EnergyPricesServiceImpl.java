@@ -20,7 +20,6 @@ public class EnergyPricesServiceImpl {
 	@Autowired
 	private EnergyPricesRepository energyPricesRepository;
 	
-	@SuppressWarnings("null")
 	public void loadEneryPricesFromJson(String filePath) throws IOException {
 
         try {
