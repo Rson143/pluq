@@ -59,5 +59,4 @@ build/
 .vscode/
 
 ### data files ###
-*.json
 *.docx
