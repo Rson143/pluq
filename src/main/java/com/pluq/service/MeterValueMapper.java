@@ -15,13 +15,25 @@ public class MeterValueMapper {
         dto.setPhysicalReference(meterValue.getPhysicalReference());
         dto.setTransactionId(meterValue.getTransactionId());
         dto.setMeterValue(meterValue.getMeterValue());
-		System.out.println(dto.toString());
         return dto;
 	}
 	
 	 public static List<MeterValueDto> toDTOList(List<MeterValues> meterValue) {
-		 
-	        return meterValue.stream().map(MeterValueMapper::toDTO).collect(Collectors.toList());
+		return meterValue.stream().map(MeterValueMapper::toDTO).collect(Collectors.toList());
 	    }
+
+	public static List<MeterValues> toJpaList(List<MeterValueDto> values) {
+		return values.stream().map(MeterValueMapper::toJpa).collect(Collectors.toList());
+    }
+	
+	private static MeterValues toJpa(MeterValueDto meterValue) {
+		MeterValues Jpa = new MeterValues();
+		Jpa.setDate(meterValue.getDate());
+		Jpa.setDateAdded(meterValue.getDateAdded());
+		Jpa.setPhysicalReference(meterValue.getPhysicalReference());
+		Jpa.setTransactionId(meterValue.getTransactionId());
+		Jpa.setMeterValue(meterValue.getMeterValue());
+        return Jpa;
+	}
 
 }

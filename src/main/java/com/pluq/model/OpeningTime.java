@@ -12,17 +12,5 @@ public class OpeningTime {
 	
 	@JsonProperty("twentyfourseven")
 	private Boolean twentyfourseven;
-	
-	public OpeningTime() {
-		this.twentyfourseven = null;
-	}
 
-	public Boolean getTwentyfourseven() {
-		return twentyfourseven;
-	}
-
-	public void setTwentyfourseven(Boolean twentyfourseven) {
-		this.twentyfourseven = twentyfourseven;
-	}
-	
 }

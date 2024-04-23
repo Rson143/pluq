@@ -22,9 +22,9 @@ public class DataLoaderComponent implements CommandLineRunner{
 	
     @Override
     public void run(String... args) throws Exception {
-		meterValueServiceImpl.loadMeterValueFromJson("src/main/resources/meterValues.json");
-		eneryPricesServicImpl.loadEneryPricesFromJson("src/main/resources/energyPrices.json");
-		locationsServiceImpl.loadLocationsFromJson("src/main/resources/locations.json");
-		
+		meterValueServiceImpl.loadMeterValueFromJson(Constant.METER_VALUES);
+		eneryPricesServicImpl.loadEneryPricesFromJson(Constant.ENERGY_PRICES);
+		locationsServiceImpl.loadLocationsFromJson(Constant.LOCATIONS);
     }
+    
 }

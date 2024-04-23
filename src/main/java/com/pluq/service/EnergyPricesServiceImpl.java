@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,11 @@ import com.pluq.repository.EnergyPricesRepository;
 @Service
 public class EnergyPricesServiceImpl {
 	
+	private static final Logger logger = Logger.getLogger(EnergyPricesServiceImpl.class.getName());
+	
 	@Autowired
 	private EnergyPricesRepository energyPricesRepository;
-	
-	@SuppressWarnings("null")
+
 	public void loadEneryPricesFromJson(String filePath) throws IOException {
 
         try {
@@ -29,9 +32,9 @@ public class EnergyPricesServiceImpl {
             objectMapper.registerModule(new JavaTimeModule());
             List<EnergyPrices> energyPrices = objectMapper.readValue(jsonData, new TypeReference<List<EnergyPrices>>() {});
             energyPricesRepository.saveAll(energyPrices);
-
+            logger.info("Energy Price data created");
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.log(Level.SEVERE, "Error occurred: " + e.getMessage(), e);
         }
 
 	}

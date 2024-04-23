@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -19,9 +21,11 @@ import com.pluq.repository.MeterValueRepository;
 @Service
 public class MeterValueServiceImpl implements MeterValueService {
 	
+	private static final Logger logger = Logger.getLogger(MeterValueServiceImpl.class.getName());
+	
 	@Autowired
 	private MeterValueRepository meterValueRepository;
-	
+
 	public void loadMeterValueFromJson(String filePath) throws IOException {
 
         try {
@@ -30,15 +34,16 @@ public class MeterValueServiceImpl implements MeterValueService {
             objectMapper.registerModule(new JavaTimeModule());
             List<MeterValues> meterValue = objectMapper.readValue(jsonData, new TypeReference<List<MeterValues>>() {});
             meterValueRepository.saveAll(meterValue);
-
+            logger.info("Meter Values data created");
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.log(Level.SEVERE, "Error occurred: " + e.getMessage(), e);
         }
 
 	}
 
-	public List<MeterValues> getAllMeterValue() {
-		return meterValueRepository.findAll();
+	public List<MeterValueDto> getAllMeterValue() {
+		List<MeterValues> meterValues =  meterValueRepository.findAll();
+		return MeterValueMapper.toDTOList(meterValues);
 	}
 
 
@@ -48,8 +53,11 @@ public class MeterValueServiceImpl implements MeterValueService {
 		return MeterValueMapper.toDTOList(meterValues);
 	}
 
-	public void saveMeterValues(@NonNull List<MeterValues> values) {
-		meterValueRepository.saveAll(values);
+	public void saveMeterValues(@NonNull List<MeterValueDto> values) 
+	{
+		 List<MeterValues> meterValues = MeterValueMapper.toJpaList(values);
+		 logger.info("Meter value created "+meterValues.toString());
+		 meterValueRepository.saveAll(meterValues);
 	}
 }
 
