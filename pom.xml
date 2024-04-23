@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.pluq</groupId>
 	<artifactId>pluq</artifactId>
-	<version>0.4.2</version>
+	<version>0.4.3</version>
 	<name>pluq</name>
 	<description>Test project for Pluq</description>
 	<properties>
@@ -47,6 +47,7 @@
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
+		    <version>1.18.32</version>
 		    <scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -61,7 +62,25 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- or the latest version -->
+                <configuration>
+                    <!-- Specify the Lombok JAR as an annotation processor -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.32</version> <!-- or the latest version -->
+                        </path>
+                    </annotationProcessorPaths>
+                    <!-- Ensure that generated sources are included in the compiler's source path -->
+                    <generatedSourcesDirectory>${project.build.directory}/generated-sources/annotations</generatedSourcesDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+		
 	</build>
 
 </project>

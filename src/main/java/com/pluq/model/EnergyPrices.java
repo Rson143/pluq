@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class EnergyPrices {
 	
     @Id
@@ -42,76 +45,4 @@ public class EnergyPrices {
     @Column(name = "timeslot")
     private int timeslot;
 
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getBuyVolume() {
-		return buyVolume;
-	}
-
-	public void setBuyVolume(String buyVolume) {
-		this.buyVolume = buyVolume;
-	}
-
-	public String getSellVolume() {
-		return sellVolume;
-	}
-
-	public void setSellVolume(String sellVolume) {
-		this.sellVolume = sellVolume;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public int getTimeslot() {
-		return timeslot;
-	}
-
-	public void setTimeslot(int timeslot) {
-		this.timeslot = timeslot;
-	}
 }

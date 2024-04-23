@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -19,20 +21,22 @@ import com.pluq.repository.LocationsRepository;
 @Service
 public class LocationsServiceImpl{
 	
+	private static final Logger logger = Logger.getLogger(LocationsServiceImpl.class.getName());
+	
 	@Autowired
 	private LocationsRepository locationRepository;
-	
+		
 	public void loadLocationsFromJson(String filePath) throws IOException {
 
         try {
             String jsonData = new String(Files.readAllBytes(Paths.get(filePath)));
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            List<Location> meterValue = objectMapper.readValue(jsonData, new TypeReference<List<Location>>() {});
-            locationRepository.saveAll(meterValue);
-
+            List<Location> location = objectMapper.readValue(jsonData, new TypeReference<List<Location>>() {});
+            locationRepository.saveAll(location);
+            logger.info("Location data created");
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.log(Level.SEVERE, "Error occurred: " + e.getMessage(), e);
         }
 	}
 
@@ -41,7 +45,9 @@ public class LocationsServiceImpl{
 	}
 
 	public Optional<Location> getLocationByID(@NonNull String id) {
-		return locationRepository.findById(id);
+		Optional<Location> location = locationRepository.findById(id);
+		logger.info("Retrieve Location data by Id "+ location.toString());
+		return location;
 	}
 
 	public void saveOrUpdateLocation(@NonNull List<Location> locations) {
